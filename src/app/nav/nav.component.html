@@ -1,0 +1,36 @@
+<header>
+    <nav
+        class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3"
+    >
+        <div class="container-fluid">
+            <a class="navbar-brand" [routerLink]="['/']">Travel Expenses Record by Jadepat Chernsonthi</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target=".navbar-collapse"
+                aria-label="Toggle navigation"
+                [attr.aria-expanded]="isExpanded"
+                (click)="toggle()"
+            >
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            
+            
+            <div
+                class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+                [ngClass]="{ show: isExpanded }"
+            >
+                <ul class="navbar-nav flex-grow">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/']">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-info" [routerLink]="['/add']">Add +</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

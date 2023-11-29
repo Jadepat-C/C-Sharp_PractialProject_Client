@@ -1,0 +1,122 @@
+<header>
+    <div class="container-fluid">
+        <h1>View Record</h1>
+        <!-- <ul class="pagination d-flex justify-content-end">
+            <li class="page-item">
+                <a class="p-2 page-link" (click)="goFirst()">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="p-2 page-link" (click)="previousPage()">&lsaquo;</a>
+            </li>
+            <li class="page-item" *ngIf="totalPages()">
+                <ng-container *ngFor="let page of visiblePageNumbers()">
+                    <li class="page-item" style="display: inline-block;">
+                        <a class="p-2 page-link" (click)="goToPage(page)">{{ page }}</a>
+                    </li>
+                </ng-container>
+            </li>
+            <li class="page-item">
+                <a class="p-2 page-link" (click)="nextPage()">&rsaquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="p-2 page-link" (click)="goLast()">&raquo;</a>
+            </li>
+        </ul> -->
+        <div class="d-flex align-items-center">
+            <form class="form-inline me-auto d-flex">
+                <input [(ngModel)]="query" id="search" type="search" class="form-control" name="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success ms-2" (click)="search()">Search</button>
+            </form>
+            <mat-paginator
+                [length]="totalInstance"
+                pageSize="itemsPerPage"
+                [pageSizeOptions]="[30, 100, 500]"
+                [showFirstLastButtons]="true"
+                (page)="onPageChange($event)"
+                aria-label="Select page"
+            ></mat-paginator>
+        </div>
+        <p *ngIf="totalInstance == 5000" class="text-danger">Search results return more than 5,000 values, only first 5,000 values are shown.</p>
+
+        <table class="table table-hover">
+            <thead>
+                <tr class="sticky-header">
+                    <th scope="col">Ref Number</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Purpose</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Airfare</th>
+                    <th scope="col">Other Transportation</th>
+                    <th scope="col">Lodging</th>
+                    <th scope="col">Meals</th>
+                    <th scope="col">Other Expenses</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let instance of displayedInstances()" (click)="selectInstance(instance)">
+                    <td>
+                        {{ instance.refNumber }}
+                    </td>
+                    <td>
+                        {{ instance.titleEn }}
+                        <span *ngIf="instance.titleEn == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.purposeEn }}
+                        <span *ngIf="instance.purposeEn == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.startDate | date:'MM/dd/yyyy'}}
+                        <span *ngIf="instance.startDate == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.endDate | date:'MM/dd/yyyy'}}
+                        <span *ngIf="instance.endDate == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.airfare | number:'1.2-2' }}
+                        <span *ngIf="instance.airfare == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.otherTransport | number:'1.2-2' }}
+                        <span *ngIf="instance.otherTransport == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.lodging | number:'1.2-2' }}
+                        <span *ngIf="instance.lodging == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.meals | number:'1.2-2' }}
+                        <span *ngIf="instance.meals == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.otherExpenses | number:'1.2-2' }}
+                        <span *ngIf="instance.otherExpenses == null"><em>N/A</em></span>
+                    </td>
+                    <td>
+                        {{ instance.total | number:'1.2-2' }}
+                        <span *ngIf="instance.total == null"><em>N/A</em></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-center mt-5" *ngIf="dataset.length === 0 && !isFiltered">
+            <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                <!-- <span class="sr-only">Loading...</span> -->
+            </div>
+        </div>
+        <mat-paginator
+            [length]="totalInstance"
+            pageSize="itemsPerPage"
+            [pageSizeOptions]="[30, 100, 500]"
+            [showFirstLastButtons]="true"
+            (page)="onPageChange($event)"
+            aria-label="Select page"
+        ></mat-paginator>
+    </div>
+</header>
+<p-toast position="bottom-right"></p-toast>

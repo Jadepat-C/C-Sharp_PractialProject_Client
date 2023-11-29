@@ -1,0 +1,140 @@
+<div class="container-fluid">
+    <h1>Insert Record</h1>
+    <div>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/']">Dashboard</a></li>
+            <li class="breadcrumb-item active">Add New Record</li>
+        </ol>
+    </div>
+    <form #insertForm="ngForm" class="container w-50">
+        <div *ngIf="error.length != 0">
+            <div class="alert alert-danger">{{ error }}</div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="refNumber">Ref Number<span class="text-danger">*</span></label>
+            <input type="text" id="refNumber" class="form-control" 
+            name="refNumber"
+            [(ngModel)]="refNumber">
+        </div>
+        <div class="form-group mb-2">
+            <label for="titleEn">Title<span class="text-danger">*</span></label>
+            <input type="text" id="titleEn" class="form-control" 
+            name="titleEn"
+            [(ngModel)]="titleEn">
+        </div>
+        <div class="form-group mb-2">
+            <label for="purposeEn">Purpose<span class="text-danger">*</span></label>
+            <input type="text" id="purposeEn" class="form-control" 
+            name="purposeEn"
+            [(ngModel)]="purposeEn">
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <div class="form-group col-md-6 pe-1">
+                <label for="startDate">Start Date<span class="text-danger">*</span></label>
+                <input type="date" id="startDate" class="form-control" 
+                name="startDate"
+                [(ngModel)]="startDate">
+            </div>
+            <div class="form-group col-md-6 ps-1">
+                <label for="endDate">End Date<span class="text-danger">*</span></label>
+                <input type="date" id="endDate" class="form-control" 
+                name="end_date"
+                [(ngModel)]="endDate">
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <div class="form-group col-md-6 pe-1">
+                <label for="airfare">Airfare</label>
+                <div class="input-group">
+                    <input type="number" id="airfare" class="form-control" placeholder="0.00" 
+                    name="airfare"
+                    [(ngModel)]="airFare"
+                    (ngModelChange)="calculateTotal()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-md-6 ps-1">
+                <label for="otherTransport">Other Transport</label>
+                <div class="input-group">
+                    <input type="number" id="otherTransport" class="form-control" placeholder="0.00" 
+                    name="otherTransport"
+                    [(ngModel)]="otherTransport"
+                    (ngModelChange)="calculateTotal()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="d-flex justify-content-between mb-2">
+            <div class="form-group mb-2 pe-1">
+                <label for="lodging">Lodging</label>
+                <div class="input-group">
+                    <input type="number" id="lodging" class="form-control" placeholder="0.00" 
+                    name="lodging"
+                    [(ngModel)]="lodging"
+                    (ngModelChange)="calculateTotal()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-2 px-1">
+                <label for="meals">Meals</label>
+                <div class="input-group">
+                    <input type="number" id="meals" class="form-control" placeholder="0.00" 
+                    name="meals"
+                    [(ngModel)]="meals"
+                    (ngModelChange)="calculateTotal()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-2 ps-1">
+                <label for="otherExpenses">Other Expenses</label>
+                <div class="input-group">
+                    <input type="number" id="otherExpenses" class="form-control" placeholder="0.00" 
+                    name="otherExpenses"
+                    [(ngModel)]="otherExpenses"
+                    (ngModelChange)="calculateTotal()">
+                    <div class="input-group-append">
+                        <span class="input-group-text">$</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb-2">
+            <label for="Total">Total</label>
+            <div class="input-group">
+                <input type="number" id="Total" class="form-control" readonly disabled placeholder="{{ total | number:'1.2-2'}}" 
+                name="total"
+                [(ngModel)]="total"
+                (ngModelChange)="calculateTotal()">
+                <div class="input-group-append">
+                    <span class="input-group-text">$</span>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary mt-2" (click)="submit()">Submit</button>
+        <button type="reset" class="btn btn-secondary mt-2 ms-2" (click)="reset()">Reset</button>
+    </form>
+</div>
+
+<!-- Response Modal -->
+<ng-template #responseModal let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <p>{{ notice }}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Close</button>
+    </div>
+</ng-template>
+
+<p-toast position="bottom-right"></p-toast>

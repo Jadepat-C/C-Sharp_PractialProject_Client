@@ -1,0 +1,15 @@
+$ac-green:  #006341;
+$hover-grey: #e4e4e4b4;
+nav {
+    background-color: $ac-green;
+    a{
+        color: white;
+    }
+    li :hover{
+        color: $hover-grey;
+    }
+}
+
+body {
+    font-family:  Helvetica, Arial, sans-serif;
+}

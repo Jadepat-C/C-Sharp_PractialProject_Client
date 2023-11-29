@@ -1,0 +1,21 @@
+$ac-green:  #006341;
+
+.table-hover {
+    tbody {
+        tr :hover{
+            cursor: pointer;
+        }
+    }
+}
+
+.sticky-header {
+    th{
+        position: sticky; 
+        top: 0; 
+    }
+    
+}
+
+.page-item{
+    cursor: pointer;
+}
